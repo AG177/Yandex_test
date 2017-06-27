@@ -1,0 +1,83 @@
+﻿<!doctype html>
+<html>
+<head>
+<title>Работа с зависимыми списками. Вариант  2</title>
+<meta charset=utf-8">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+//массив для хранения построенных списков
+var s = [];
+var cards = [
+  [],
+  [
+    ['Take train 78A from Madrid to Barcelona. Seat 45B','1'],
+    
+  ],
+ [
+    ['Take the airport bus from Barcelona to Gerona Airport. No seat assignment.','2'],
+   
+  ],
+  [
+    
+    ['From Gerona Airport, take flight SK455 to Stockholm. Gate 45B. Seat 3A. Baggage dropat ticket counter 344.','3'],
+    
+  ],
+  [
+    ['From Stockholm, take flight SK22 to New York JFK. Gate 22. Seat 7B. Baggage will beautomatically transferred from your last leg.','4'],
+    
+  ]
+];
+  
+function createCards(e){
+//ссылка на элемент куда будем прикреплять
+var x = document.getElementById('s1');
+
+//Способ для чистки (не для IE)
+x.innerHTML = "";
+
+//Чистка элемента
+while (x.firstChild){
+ x.removeChild(x.firstChild);
+}
+
+//строить select для множества вариантов
+ if (e.value != 0){
+ 
+  //проверка на наличие уже существующего списка
+  if(!s[e.value]){
+   s[e.value] = document.createElement('select');
+   s[e.value].name = 'cards';
+   //на практике, в работе, можно получать готовый массив вместо cards[]
+   for (var i in cards[e.value]){
+     var o = document.createElement('option');
+	 s[e.value].appendChild(o);
+	 o.text =  cards[e.value][i][0];
+	 o.value =  cards[e.value][i][1];
+   }
+   }
+   x.appendChild(s[e.value]);
+   
+ } 
+}
+
+</script>
+</head>
+ 
+<body>
+
+
+ <form name="f">
+<select name="country" onchange="createCards(this)">
+    <option value="0">Выбрать cards </option> 
+    <option value="1">cards1</option> 
+    <option value="2">cards2</option> 
+	 <option value="3">cards3</option> 
+	  <option value="4">cards4</option> 
+</select>
+     
+<span id="s1"></span>
+ </form>
+</body>
+</html>
